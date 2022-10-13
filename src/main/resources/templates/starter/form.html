@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout.html}"
+>
+<meta charset="UTF-8">
+<div layout:fragment="content">
+
+
+<div class="alert alert-primary" th:if="${mensagem != null}" th:text="${mensagem}">
+	</div>
+	<div class="card">
+		<div class="card-header">
+			<p class="text-primary">Novo Starter</p>
+		</div>
+		<div class="card-body">
+			<form method="POST" th:object="${starter}" th:action="@{/starter/editar}">
+				<input type="hidden" th:field="*{id_starter}">
+				<div class="form-group mb-3">
+					<label for="nome_starter">Nome:</label>
+					<input
+						class="form-control" type="text" th:field="*{nome_starter}" required></input>
+					<div class="text-danger" th:if="${#fields.hasErrors('nome_starter')}" th:errors="*{nome_starter}"></div>
+				</div>
+				<div class="form-group mb-3">
+					<label for="nome">Tecnologia:</label>
+					<select class="form-select" th:field="*{tecnologia}">
+						<option th:each="tecnologia: ${listaTecnologia}" th:value="${tecnologia.id_tecnologia}" th:text="${tecnologia.nome_tecnologia}" />
+					</select>
+				</div>
+				<button type="submit" class="btn btn-primary">Salvar
+					Starter</button>
+			</form>
+		</div>
+	</div>
+
+
+</div>
+
+</html>
